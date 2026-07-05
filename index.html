@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>人生浪费宝典</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="topbar" aria-label="应用概览">
+        <div>
+          <p class="eyebrow">LIFE WASTE CODEX</p>
+          <h1>人生浪费宝典</h1>
+        </div>
+        <div class="stats-strip" aria-label="今日统计">
+          <div>
+            <span id="todayMinutes">0</span>
+            <small>今日已浪费分钟</small>
+          </div>
+          <div>
+            <span id="streakDays">0</span>
+            <small>连续摆烂天数</small>
+          </div>
+          <div>
+            <span id="achievementCount">0</span>
+            <small>已解锁成就</small>
+          </div>
+          <button id="resetToday" class="icon-button" type="button" aria-label="重置今日记录" title="重置今日记录">
+            ↺
+          </button>
+        </div>
+      </section>
+
+      <section class="hero">
+        <div class="hero-art" aria-hidden="true">
+          <div class="sun"></div>
+          <div class="pool">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="lounger">
+            <div class="umbrella"></div>
+            <div class="chair"></div>
+            <div class="drink"></div>
+          </div>
+        </div>
+        <div class="hero-copy">
+          <p class="tag">反向效率学 / 轻度荒唐 / 认真执行</p>
+          <h2>把虚度光阴这件事，做得有章法一点。</h2>
+          <p>
+            随机抽一条浪费秘籍，挑一个模式，设置时长，然后光明正大地把时间花在没什么用但很像人生的事情上。
+          </p>
+        </div>
+      </section>
+
+      <section class="workbench" aria-label="浪费工作台">
+        <aside class="panel compact">
+          <div class="panel-header">
+            <h3>浪费模式</h3>
+            <button id="randomMode" class="icon-button" type="button" aria-label="随机选择模式" title="随机选择模式">⌘</button>
+          </div>
+          <div class="mode-grid" id="modeGrid"></div>
+        </aside>
+
+        <section class="panel featured">
+          <div class="panel-header">
+            <div>
+              <p class="mini-label">今日签文</p>
+              <h3 id="currentTitle">加载中</h3>
+            </div>
+            <button id="drawCard" class="primary-action" type="button">再抽一条</button>
+          </div>
+          <p id="currentDescription" class="strategy-copy"></p>
+          <div class="chips" id="currentTags"></div>
+          <div class="ritual-box">
+            <span>执行仪式</span>
+            <p id="currentRitual"></p>
+          </div>
+        </section>
+
+        <aside class="panel compact">
+          <div class="panel-header">
+            <h3>浪费计时</h3>
+            <button id="addMinute" class="icon-button" type="button" aria-label="增加一分钟" title="增加一分钟">＋</button>
+          </div>
+          <div class="timer-face">
+            <span id="timerMinutes">15</span>
+            <small>分钟</small>
+          </div>
+          <input id="durationRange" class="range" type="range" min="1" max="120" value="15" />
+          <div class="timer-actions">
+            <button id="startTimer" class="primary-action" type="button">开始浪费</button>
+            <button id="finishNow" class="secondary-action" type="button">记一笔</button>
+          </div>
+        </aside>
+      </section>
+
+      <section class="upgrade-grid" aria-label="进阶浪费工具">
+        <section class="panel prescription-panel">
+          <div class="panel-header">
+            <div>
+              <p class="mini-label">今日处方</p>
+              <h2>按状态配一条浪费路线</h2>
+            </div>
+            <button id="generatePrescription" class="primary-action" type="button">生成处方</button>
+          </div>
+          <div class="prescription-controls">
+            <label>
+              <span>心情</span>
+              <select id="moodSelect">
+                <option value="tired">累</option>
+                <option value="restless">坐不住</option>
+                <option value="blank">脑袋空</option>
+                <option value="dramatic">想演一点</option>
+              </select>
+            </label>
+            <label>
+              <span>时长</span>
+              <select id="timeSelect">
+                <option value="tiny">5-10 分钟</option>
+                <option value="short">10-20 分钟</option>
+                <option value="long">20-45 分钟</option>
+              </select>
+            </label>
+            <label>
+              <span>地点</span>
+              <select id="placeSelect">
+                <option value="desk">工位</option>
+                <option value="sofa">沙发</option>
+                <option value="outside">楼下</option>
+                <option value="bed">床边</option>
+              </select>
+            </label>
+          </div>
+          <div class="prescription-result">
+            <p class="mini-label">处方单</p>
+            <h3 id="prescriptionTitle">等待开方</h3>
+            <p id="prescriptionCopy">选择状态后生成一条适合当下的虚度路线。</p>
+            <div class="chips" id="prescriptionTags"></div>
+            <button id="applyPrescription" class="secondary-action" type="button">放到签文</button>
+          </div>
+        </section>
+
+        <section class="panel achievement-panel">
+          <div class="panel-header">
+            <div>
+              <p class="mini-label">勋章柜</p>
+              <h2>荒唐成就</h2>
+            </div>
+          </div>
+          <div id="achievementList" class="achievement-list"></div>
+        </section>
+
+        <section class="panel custom-panel">
+          <div class="panel-header">
+            <div>
+              <p class="mini-label">私人条目</p>
+              <h2>把你的浪费写进宝典</h2>
+            </div>
+          </div>
+          <form id="customForm" class="custom-form">
+            <label>
+              <span>标题</span>
+              <input id="customTitle" type="text" maxlength="24" required placeholder="例如：冰箱灯研究" />
+            </label>
+            <label>
+              <span>模式</span>
+              <select id="customMode"></select>
+            </label>
+            <label>
+              <span>分钟</span>
+              <input id="customMinutes" type="number" min="1" max="120" value="12" required />
+            </label>
+            <label class="wide-field">
+              <span>做什么</span>
+              <textarea id="customDescription" rows="3" maxlength="90" required placeholder="一句话描述这项浪费"></textarea>
+            </label>
+            <label class="wide-field">
+              <span>仪式</span>
+              <textarea id="customRitual" rows="2" maxlength="90" required placeholder="给它配一个荒唐流程"></textarea>
+            </label>
+            <button class="primary-action wide-field" type="submit">收入宝典</button>
+          </form>
+        </section>
+      </section>
+
+      <section class="library" aria-label="宝典库">
+        <div class="section-title">
+          <div>
+            <p class="mini-label">手册条目</p>
+            <h2>浪费也要分门别类</h2>
+          </div>
+          <div class="filter-tabs" id="filterTabs"></div>
+        </div>
+        <div class="cards" id="cardList"></div>
+      </section>
+
+      <section class="logbook" aria-label="浪费记录">
+        <div class="section-title">
+          <div>
+            <p class="mini-label">今日账本</p>
+            <h2>虚度记录</h2>
+          </div>
+          <button id="clearLog" class="secondary-action" type="button">清空记录</button>
+        </div>
+        <div id="logList" class="log-list"></div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
